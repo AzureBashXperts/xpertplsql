@@ -10,10 +10,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: echo 'Sonar Execution'
+  displayName: 'Sonar Exe'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: SonarQubePrepare@5
+  inputs:
+    SonarQube: 'Sonar-Cloud'
+    scannerMode: 'CLI'
+    configMode: 'file'
+- task: SonarQubeAnalyze@5
+
+- task: SonarQubePublish@5
+  inputs:
+    pollingTimeoutSec: '300'
